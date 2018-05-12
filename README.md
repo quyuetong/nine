@@ -16,7 +16,7 @@ A simple implementation of to do list using react + Django rest framework
 5. 登出
 
 ### Demo
-* [Demo](https://goo.gl/K63X8w/) - An instance of this project hosted on AWS
+* [Demo](https://goo.gl/K63X8w) - An instance of this project hosted on AWS
 
 Test account with some sample data
 ```
