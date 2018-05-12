@@ -60,10 +60,16 @@ def add_task(request):
     return Response({"result": True})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def get_tasks(request):
     owner = request.user
     tasks = Task.objects.filter(owner=owner)
+    sort_by = request.data.get('sort_by')
+    reverse = request.data.get('reverse')
+    if len(sort_by) > 0:
+        tasks = tasks.order_by(sort_by)
+        if reverse:
+            tasks = tasks[::-1]
     tasks_l = []
     for item in tasks:
         temp_d = dict()

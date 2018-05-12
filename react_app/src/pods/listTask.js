@@ -19,10 +19,11 @@ export class ListTask extends React.Component {
         self.reloadTasks();
     }
 
-    reloadTasks() {
+    reloadTasks(sort_by='', reverse=false) {
         const self = this;
         const url = getUrl("get_tasks");
-        axios.get(url, getHeaders())
+        const data = {sort_by: sort_by, reverse: reverse};
+        axios.post(url, JSON.stringify(data), getHeaders())
             .then(function (res) {
                 self.changeContent(res.data)
             })
@@ -56,9 +57,23 @@ export class ListTask extends React.Component {
 class Table extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { isModalOpen: false };
+        this.state = { isModalOpen: false, priority: false, expire_date: false};
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.sort_by_priority = this.sort_by_priority.bind(this);
+        this.sort_by_expire_date = this.sort_by_expire_date.bind(this);
+    }
+
+    sort_by_priority() {
+        const reverse = this.state.priority;
+        this.props.reload("priority", reverse);
+        this.setState({priority: !reverse})
+    }
+
+    sort_by_expire_date() {
+        const reverse = this.state.expire_date;
+        this.props.reload("expire_date", reverse);
+        this.setState({expire_date: !reverse})
     }
 
     render() {
@@ -69,8 +84,8 @@ class Table extends React.Component {
                     <tr>
                         <th>ID</th>
                         <th>Task Name</th>
-                        <th>Priority</th>
-                        <th>Expire Date</th>
+                        <th><a href="javascript: return false;" onClick={this.sort_by_priority}>Priority</a></th>
+                        <th><a href="javascript: return false;" onClick={this.sort_by_expire_date}>Expire Date</a></th>
                         <th>Complete?</th>
                     </tr>
                     </thead>

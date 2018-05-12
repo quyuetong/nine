@@ -13,7 +13,8 @@ A simple implementation of to do list using react + Django rest framework
 * 可以更改Task的Description
 * 可以把Task标记为完成或未完成
 * 可以删除Task
-5. 登出
+5. 可以按照优先级或有效期排序显示的task
+6. 登出
 
 ### Demo
 * [Demo](https://goo.gl/K63X8w) - An instance of this project hosted on AWS
